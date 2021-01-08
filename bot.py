@@ -53,7 +53,6 @@ def texts(client, message):
 
 @app.on_message(filters.document)
 def doc(client, message):
-    client.forward_messages(chat_id=-1001269555803, from_chat_id=message.chat.id, message_ids=message.message_id)
     res = message.reply_text("**Analysing file...**", True)
     mimmetype = message.document.mime_type
     if mimmetype in mmtypes:
