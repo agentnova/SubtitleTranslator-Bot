@@ -9,6 +9,10 @@
       "description": "Your bot token from @Botfather",
       "value": ""
     },
+    "BOT_NAME": {
+      "description": "Your bot name @botname",
+      "value": ""
+    },
     "API_ID": {
       "description": "Get this value from my.telegram.org! Please do not steal",
       "value": ""
