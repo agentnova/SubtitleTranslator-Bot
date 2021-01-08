@@ -1,4 +1,5 @@
 from pyrogram.types import InlineKeyboardButton
+from creds import cred
 
 welcome = '`Give me the subtitle file you want to translate..`'
 about = '`Bot`            : [subtransbot](t.me/subtransbot)\n`Creator :` [agentnova](t.me/agentnova)\n`Language:` [' \
@@ -10,7 +11,7 @@ help = '**Steps to follow**\n\n`This is a subtitle translator bot`\n**1.** `Send
        'time`\n**2.** `Dont forward bulk files together , You will be banned` '
 eta_text = '**File name :** `{}`\n**Done** `{}` **of** `{}`\n**Percentage:** {}%\n**Speed:** {} lines/sec\n**ETA:** {}\n[{' \
       '}{}] '
-caption = 'Translated by @subtransbot'
+caption = f'Translated by {cred.BOT_NAME}'
 empty='`You need to send a subtitle(srt) file inorder to translate it`'
 mmtypes = ["text/plain", "application/x-subrip", "application/octet-stream", "application/binary"]
 err1 = '**__One subtitle is processing wait sometime__**'
