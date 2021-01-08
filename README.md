@@ -43,6 +43,7 @@ class cred():
     BOT_TOKEN = "your bot token from botfather"
     API_ID = "your api id from my.telegram.org!"       
     API_HASH = "your api hash from my.telegram.org!"   
-    DB_URL = "your database url from google firebase"      
+    DB_URL = "your database url from google firebase" 
+    BOT_NAME = "your bot name"     
 ```
 
