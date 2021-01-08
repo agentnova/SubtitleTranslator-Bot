@@ -1,0 +1,30 @@
+{
+  "name": "Subtrans bot",
+  "description": "A telegram bot which translates subtitle file to another language",
+  "repository": "https://github.com/agentnova/SubtitleTranslator-Bot",
+  "logo": "https://raw.githubusercontent.com/agentnova/SubtitleTranslator-Bot/main/logo.jpg",
+  "keywords": ["Subtitle","telegram","telegram bot","bot","pyrogram","subtitle translator","translator","python"],
+  "env": {
+    "BOT_TOKEN": {
+      "description": "Your bot token from @Botfather",
+      "value": ""
+    },
+    "API_ID": {
+      "description": "Get this value from my.telegram.org! Please do not steal",
+      "value": ""
+    },
+    "API_HASH": {
+      "description": "Get this value from my.telegram.org! Please do not steal",
+      "value": ""
+    },
+    "DB_URL": {
+      "description": "Your DATABASE url from firebase.google.com",
+      "value": ""
+    }
+  },
+  "buildpacks": [
+    {
+      "url": "heroku/python"
+    }
+  ]
+}
