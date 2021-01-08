@@ -145,7 +145,7 @@ def data(client, callback_query):
                             if done % 20 == 0:
                                 try:
                                     tr.edit(
-                                        text=eta.format(
+                                        text=eta_text.format(
                                             message.document.file_name,
                                             done,
                                             total,
