@@ -8,7 +8,7 @@ help = '**Steps to follow**\n\n`This is a subtitle translator bot`\n**1.** `Send
        'translate.`\n**2.** `Select the destination language(dont press multiple buttons).`\n**3.** `Wait some time ' \
        'to complete the translation.`\n\n**Keep in mind**\n\n**1.** `You can only translate one subtitle at a ' \
        'time`\n**2.** `Dont forward bulk files together , You will be banned` '
-eta = '**File name :** `{}`\n**Done** `{}` **of** `{}`\n**Percentage:** {}%\n**Speed:** {} lines/sec\n**ETA:** {}\n[{' \
+eta_text = '**File name :** `{}`\n**Done** `{}` **of** `{}`\n**Percentage:** {}%\n**Speed:** {} lines/sec\n**ETA:** {}\n[{' \
       '}{}] '
 caption = 'Translated by @subtransbot'
 empty='`You need to send a subtitle(srt) file inorder to translate it`'
