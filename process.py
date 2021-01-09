@@ -1,8 +1,8 @@
 from firebase import firebase as fb
 import datetime
 import pytz
-
-firebase = fb.FirebaseApplication("https://subtrans8497234ruu.firebaseio.com/")
+from creds import cred
+firebase = fb.FirebaseApplication(cred.DB_URL)
 
 
 def datefind():
