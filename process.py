@@ -1,5 +1,6 @@
 from firebase import firebase
-import datetime, pytz
+import datetime
+import pytz
 
 firebase = firebase.FirebaseApplication("https://subtrans8497234ruu.firebaseio.com/")
 

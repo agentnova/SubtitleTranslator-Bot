@@ -1,4 +1,3 @@
-import io, math, os, time
 from firebase import firebase
 from creds import cred
 from googletrans import Translator
@@ -16,6 +15,10 @@ from process import (
     today_date,
 )
 from strings import *
+import time
+import math
+import io
+import os
 
 firebase = firebase.FirebaseApplication(cred.DB_URL)
 app = Client(
