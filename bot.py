@@ -4,7 +4,17 @@ from creds import cred
 from googletrans import Translator
 from pyrogram import Client, filters
 from pyrogram.types import InlineKeyboardMarkup
-from process import check, count, update, dt, format_time, insertlog, updateFile, logreturn, today_date
+from process import (
+    check,
+    count,
+    update,
+    dt,
+    format_time,
+    insertlog,
+    updateFile,
+    logreturn,
+    today_date,
+)
 from strings import *
 
 firebase = firebase.FirebaseApplication(cred.DB_URL)
@@ -12,17 +22,24 @@ app = Client(
     "subtitle-translator-bot-subtranss",
     api_id=cred.API_ID,
     api_hash=cred.API_HASH,
-    bot_token=cred.BOT_TOKEN
+    bot_token=cred.BOT_TOKEN,
 )
 
 
 @app.on_message(filters.command(["start"]))
 def start(client, message):
-    client.send_message(chat_id=message.chat.id,
-                        text=f"`Hi` **{message.from_user.first_name}**\n{welcome}",
-                        reply_markup=InlineKeyboardMarkup(
-                            [[InlineKeyboardButton("About", callback_data="about"),
-                              InlineKeyboardButton("Help", callback_data="help")]]))
+    client.send_message(
+        chat_id=message.chat.id,
+        text=f"`Hi` **{message.from_user.first_name}**\n{welcome}",
+        reply_markup=InlineKeyboardMarkup(
+            [
+                [
+                    InlineKeyboardButton("About", callback_data="about"),
+                    InlineKeyboardButton("Help", callback_data="help"),
+                ]
+            ]
+        ),
+    )
     check_udate = dt(message.chat.id)
     if check_udate is None:
         update(message.chat.id, 0, "free")
@@ -32,16 +49,24 @@ def start(client, message):
 
 @app.on_message(filters.command(["about"]))
 def abouts(client, message):
-    client.send_message(chat_id=message.chat.id, reply_to_message_id=message.message_id,
-                        text=about,
-                        disable_web_page_preview=True, reply_markup=InlineKeyboardMarkup([
-            [InlineKeyboardButton("Give Feedback", url="t.me/agentnova")]]))
+    client.send_message(
+        chat_id=message.chat.id,
+        reply_to_message_id=message.message_id,
+        text=about,
+        disable_web_page_preview=True,
+        reply_markup=InlineKeyboardMarkup(
+            [[InlineKeyboardButton("Give Feedback", url="t.me/agentnova")]]
+        ),
+    )
 
 
 @app.on_message(filters.command(["log"]))
 def stats(client, message):
-    stat = client.send_message(chat_id=message.chat.id, reply_to_message_id=message.message_id,
-                               text="`Fetching details`")
+    stat = client.send_message(
+        chat_id=message.chat.id,
+        reply_to_message_id=message.message_id,
+        text="`Fetching details`",
+    )
     txt = logreturn()
     stat.edit(txt)
 
@@ -66,9 +91,10 @@ def doc(client, message):
         elif status_bot == "free":
             update(message.chat.id, counts, "waiting")
             message.reply_chat_action("typing")
-            res.edit(text="choose the destination language",
-                     reply_markup=InlineKeyboardMarkup(langs)
-                     )
+            res.edit(
+                text="choose the destination language",
+                reply_markup=InlineKeyboardMarkup(langs),
+            )
         else:
             res.edit(err1)
     else:
@@ -82,15 +108,20 @@ def data(client, callback_query):
     if rslt == "about":
         callback_query.message.edit(
             text=about,
-            disable_web_page_preview=True, reply_markup=InlineKeyboardMarkup([
-                [InlineKeyboardButton("Give Feedback", url="t.me/agentnova")]]))
+            disable_web_page_preview=True,
+            reply_markup=InlineKeyboardMarkup(
+                [[InlineKeyboardButton("Give Feedback", url="t.me/agentnova")]]
+            ),
+        )
     elif rslt == "close":
         callback_query.message.delete()
     elif rslt == "help":
         callback_query.message.edit(
             text=help,
-            reply_markup=InlineKeyboardMarkup([
-                [InlineKeyboardButton("close", callback_data="close")]]))
+            reply_markup=InlineKeyboardMarkup(
+                [[InlineKeyboardButton("close", callback_data="close")]]
+            ),
+        )
     else:
         lang = rslt
         msg = callback_query.message
@@ -98,7 +129,7 @@ def data(client, callback_query):
         location = os.path.join("./FILES", str(message.chat.id))
         if not os.path.isdir(location):
             os.makedirs(location)
-        file_path = location + '/' + message.document.file_name
+        file_path = location + "/" + message.document.file_name
         subdir = client.download_media(message=message, file_name=file_path)
         translator = Translator()
         outfile = f"{subdir.replace('.srt', '')}_{lang}.srt"
@@ -133,7 +164,9 @@ def data(client, callback_query):
                                 done += 1
                             else:
                                 try:
-                                    receive = translator.translate(subtitle[i], dest=lang)
+                                    receive = translator.translate(
+                                        subtitle[i], dest=lang
+                                    )
                                     f.write(receive.text + "\n")
                                     done += 1
                                 except:
@@ -152,8 +185,22 @@ def data(client, callback_query):
                                             percentage,
                                             round(speed),
                                             eta,
-                                            ''.join(["▓" for i in range(math.floor(percentage / 7))]),
-                                            ''.join(["░" for i in range(14 - math.floor(percentage / 7))])
+                                            "".join(
+                                                [
+                                                    "▓"
+                                                    for i in range(
+                                                        math.floor(percentage / 7)
+                                                    )
+                                                ]
+                                            ),
+                                            "".join(
+                                                [
+                                                    "░"
+                                                    for i in range(
+                                                        14 - math.floor(percentage / 7)
+                                                    )
+                                                ]
+                                            ),
                                         )
                                     )
                                 except:
@@ -166,8 +213,9 @@ def data(client, callback_query):
             if not process_failed == True:
                 tr.delete()
                 if os.path.exists(outfile):
-                    message.reply_document(document=outfile, thumb="logo.jpg", quote=True,
-                                           caption=caption)
+                    message.reply_document(
+                        document=outfile, thumb="logo.jpg", quote=True, caption=caption
+                    )
                     update(message.chat.id, counts, "free")
                     insertlog()
                     updateFile()
