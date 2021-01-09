@@ -1,8 +1,8 @@
-from firebase import firebase
+from firebase import firebase as fb
 import datetime
 import pytz
 
-firebase = firebase.FirebaseApplication("https://subtrans8497234ruu.firebaseio.com/")
+firebase = fb.FirebaseApplication("https://subtrans8497234ruu.firebaseio.com/")
 
 
 def datefind():
@@ -45,7 +45,7 @@ def dt(chatids):
     try:
         data = firebase.get("/users", chatids)
         rslt = data["date"]
-    except:
+    except Exception:
         pass
     return rslt
 
@@ -76,7 +76,7 @@ def insertlog():
     files = firebase.get("/", "files")
     lst1 = []
     act = []
-    for k, v in subtrans_users.items():
+    for _, v in subtrans_users.items():
         lst1.append("u")
         if v["date"] == today_date:
             act.append("d")
@@ -98,7 +98,7 @@ def logreturn():
     total_files = f"{files['files']}"
     lst1 = []
     act = []
-    for k, v in subtrans_users.items():
+    for _, v in subtrans_users.items():
         lst1.append("u")
         if v["date"] == today_date:
             act.append("d")

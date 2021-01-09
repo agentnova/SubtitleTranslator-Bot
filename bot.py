@@ -2,7 +2,7 @@ from firebase import firebase
 from creds import cred
 from googletrans import Translator
 from pyrogram import Client, filters
-from pyrogram.types import InlineKeyboardMarkup
+from pyrogram.types import InlineKeyboardMarkup, InlineKeyboardButton
 from process import (
     check,
     count,
@@ -14,7 +14,21 @@ from process import (
     logreturn,
     today_date,
 )
-from strings import *
+from strings import (
+    eta_text,
+    help_text,
+    welcome,
+    caption,
+    mmtypes,
+    about,
+    langs,
+    empty,
+    err1,
+    err2,
+    err3,
+    err4,
+    err5,
+)
 import time
 import math
 import io
@@ -120,7 +134,7 @@ def data(client, callback_query):
         callback_query.message.delete()
     elif rslt == "help":
         callback_query.message.edit(
-            text=help,
+            text=help_text,
             reply_markup=InlineKeyboardMarkup(
                 [[InlineKeyboardButton("close", callback_data="close")]]
             ),
@@ -151,7 +165,7 @@ def data(client, callback_query):
                 with io.open(subdir, "r", encoding="utf-8") as file:
                     try:
                         subtitle = file.readlines()
-                    except:
+                    except Exception:
                         tr.edit(err4)
                         update(message.chat.id, counts, "free")
 
@@ -172,7 +186,7 @@ def data(client, callback_query):
                                     )
                                     f.write(receive.text + "\n")
                                     done += 1
-                                except:
+                                except Exception:
                                     pass
 
                             speed = done / diff
@@ -206,14 +220,14 @@ def data(client, callback_query):
                                             ),
                                         )
                                     )
-                                except:
+                                except Exception:
                                     pass
-            except:
+            except Exception:
                 tr.edit(err5)
                 counts -= 1
                 update(message.chat.id, counts, "free")
                 process_failed = True
-            if not process_failed == True:
+            if process_failed is not True:
                 tr.delete()
                 if os.path.exists(outfile):
                     message.reply_document(
