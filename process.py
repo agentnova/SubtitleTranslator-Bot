@@ -1,7 +1,8 @@
-from firebase import firebase
-import datetime, pytz
+from firebase import firebase as fb
+import datetime
+import pytz
 
-firebase = firebase.FirebaseApplication("https://subtrans8497234ruu.firebaseio.com/")
+firebase = fb.FirebaseApplication("https://subtrans8497234ruu.firebaseio.com/")
 
 
 def datefind():
@@ -23,33 +24,28 @@ date = date[0:10]
 
 
 def check(chatids):
-    data = firebase.get('/users', chatids)
+    data = firebase.get("/users", chatids)
     rslt = data["status"]
     return rslt
 
 
 def count(chatids):
-    data = firebase.get('/users', chatids)
+    data = firebase.get("/users", chatids)
     rslt = data["count"]
     return rslt
 
 
 def update(id, count, status):
-    update_data = {
-        "user_id": id,
-        "status": status,
-        "count": count,
-        "date": today_date
-    }
-    firebase.put('/users', id, update_data)
+    update_data = {"user_id": id, "status": status, "count": count, "date": today_date}
+    firebase.put("/users", id, update_data)
 
 
 def dt(chatids):
     rslt = ""
     try:
-        data = firebase.get('/users', chatids)
+        data = firebase.get("/users", chatids)
         rslt = data["date"]
-    except:
+    except Exception:
         pass
     return rslt
 
@@ -69,20 +65,20 @@ def format_time(elapsed):
 
 
 def updateFile():
-    filess = firebase.get('/', 'files')
-    filess = filess['files']
+    filess = firebase.get("/", "files")
+    filess = filess["files"]
     filess += 1
-    firebase.put('/', 'files', {'files': filess})
+    firebase.put("/", "files", {"files": filess})
 
 
 def insertlog():
-    subtrans_users = firebase.get('/users', '')
-    files = firebase.get('/', 'files')
+    subtrans_users = firebase.get("/users", "")
+    files = firebase.get("/", "files")
     lst1 = []
     act = []
-    for k, v in subtrans_users.items():
+    for _, v in subtrans_users.items():
         lst1.append("u")
-        if (v['date'] == today_date):
+        if v["date"] == today_date:
             act.append("d")
     total_files = f"{files['files']}"
     total_users = f"{lst1.count('u')}"
@@ -91,20 +87,20 @@ def insertlog():
     data = {
         "active_users": active_today,
         "translated_files": total_files,
-        "total_users": total_users
+        "total_users": total_users,
     }
-    firebase.put('/stats', date, data)
+    firebase.put("/stats", date, data)
 
 
 def logreturn():
-    subtrans_users = firebase.get('/users', '')
-    files = firebase.get('/', 'files')
+    subtrans_users = firebase.get("/users", "")
+    files = firebase.get("/", "files")
     total_files = f"{files['files']}"
     lst1 = []
     act = []
-    for k, v in subtrans_users.items():
+    for _, v in subtrans_users.items():
         lst1.append("u")
-        if v['date'] == today_date:
+        if v["date"] == today_date:
             act.append("d")
     total_files = f"`Total subtitles translated` : **{total_files}**"
     total_users = f"`Total bot users`                          : **{lst1.count('u')}**"
