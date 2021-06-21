@@ -47,12 +47,12 @@ app = Client(
 def start(client, message):
     client.send_message(
         chat_id=message.chat.id,
-        text=f"`Hi` **{message.from_user.first_name}**\n{welcome}",
+        text=f"`කොහොමද` **{message.from_user.first_name}**\n{welcome}",
         reply_markup=InlineKeyboardMarkup(
             [
                 [
-                    InlineKeyboardButton("About", callback_data="about"),
-                    InlineKeyboardButton("Help", callback_data="help"),
+                    InlineKeyboardButton(මේක ගැන", callback_data="about"),
+                    InlineKeyboardButton("උදව්", callback_data="help"),
                 ]
             ]
         ),
@@ -72,7 +72,7 @@ def abouts(client, message):
         text=about,
         disable_web_page_preview=True,
         reply_markup=InlineKeyboardMarkup(
-            [[InlineKeyboardButton("Give Feedback", url="t.me/agentnova")]]
+            [[InlineKeyboardButton("Feedback දෙන්න", url="t.me/Zitron_Kenway")]]
         ),
     )
 
@@ -95,7 +95,7 @@ def texts(client, message):
 
 @app.on_message(filters.document)
 def doc(client, message):
-    res = message.reply_text("**Analysing file...**", True)
+    res = message.reply_text("**file එක විශ්ලේශණය කරමින්...**", True)
     mimmetype = message.document.mime_type
     if mimmetype in mmtypes:
         dts = dt(message.chat.id)
@@ -127,7 +127,7 @@ def data(client, callback_query):
             text=about,
             disable_web_page_preview=True,
             reply_markup=InlineKeyboardMarkup(
-                [[InlineKeyboardButton("Give Feedback", url="t.me/agentnova")]]
+                [[InlineKeyboardButton("Give Feedback", url="t.me/Zitron_Kenway")]]
             ),
         )
     elif rslt == "close":
@@ -157,7 +157,7 @@ def data(client, callback_query):
             os.remove(subdir)
             update(message.chat.id, counts, "free")
         else:
-            tr = message.reply_text(f"Translating to {lang}", True)
+            tr = message.reply_text(f"පරිවර්තනය කරනවා👉 {lang}", True)
             counts += 1
             update(message.chat.id, counts, "waiting")
             process_failed = False
